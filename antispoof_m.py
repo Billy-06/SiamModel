@@ -13,7 +13,7 @@ def load_and_preprocess_image(image_path):
 
 def predict_class(image_path):
     # Load the trained model
-    model_path = r'C:\Users\Mumba Ntambo\SiamModel\antispoof.h5'
+    model_path = r'C:\Users\Mumba Ntambo\Documents\GitHub\SiamModel\antispoof.h5'
     loaded_model = load_model(model_path)
 
     # Load and preprocess the image
@@ -46,7 +46,7 @@ def predict_class(image_path):
     
 def predict_class_two(image_path):
     # Load the trained model
-    model_path = r'C:\Users\Mumba Ntambo\SiamModel\antispoof.h5'
+    model_path = r'C:\Users\Mumba Ntambo\Documents\GitHub\SiamModel\antispoof.h5'
     loaded_model = load_model(model_path)
 
     # Load and preprocess the image

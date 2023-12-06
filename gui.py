@@ -10,7 +10,7 @@ from classification import classify
 
 from Siamese.SiameseModel import check_image
 # Ensure the correct path is added for your predict_class function
-sys.path.append('C:/Users/Mumba Ntambo/SiamModel')
+sys.path.append('C:/Users/Mumba Ntambo/Documents/GitHub/SiamModel')
 from antispoof_m import predict_class
 
 # Additional function to ensure directory permissions
@@ -35,7 +35,7 @@ class FaceRecognitionGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Face Recognition Attendance System")
-        self.anti_spoofing_model = self.load_anti_spoofing_model('C:/Users/Mumba Ntambo/SiamModel/antispoof.h5')
+        self.anti_spoofing_model = self.load_anti_spoofing_model('C:/Users/Mumba Ntambo/Documents/GitHub/SiamModel/antispoof.h5')
         self.root.geometry('900x700')
 
         # Directory for storing registered faces
@@ -221,7 +221,7 @@ class FaceRecognitionGUI:
 
         if not self.is_real_face(self.captured_image_path):
           messagebox.showerror("Error", "Spoofing detected! Access denied.")
-          return
+        #   return
         
         else:
             cap_img_path = os.path.join(self.root_directory, 'captured_face.jpg')
