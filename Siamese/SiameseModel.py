@@ -4,6 +4,10 @@ import os
 import random
 import tensorflow as tf
 from pathlib import Path
+<<<<<<< HEAD
+=======
+from PIL import Image
+>>>>>>> mumba
 from tensorflow.keras import applications
 from tensorflow.keras import layers
 from tensorflow.keras import losses
@@ -12,6 +16,14 @@ from tensorflow.keras import metrics
 from tensorflow.keras import Model
 from tensorflow.keras.applications import resnet
 
+<<<<<<< HEAD
+=======
+from keras.preprocessing import image
+from keras.preprocessing.image import load_img, img_to_array
+from keras.applications.resnet import preprocess_input
+from keras.models import load_model
+
+>>>>>>> mumba
 target_shape = (224, 224)
 
 class Embedding(Model):
@@ -63,6 +75,7 @@ class DistanceLayer(layers.Layer):
 
 
 class SiameseModel(Model):
+<<<<<<< HEAD
     """The Siamese Network model with a custom training and testing loops.
 
     Computes the triplet loss using the three embeddings produced by the
@@ -71,6 +84,9 @@ class SiameseModel(Model):
     The triplet loss is defined as:
        L(A, P, N) = max(‖f(A) - f(P)‖² - ‖f(A) - f(N)‖² + margin, 0)
     """
+=======
+    
+>>>>>>> mumba
 
     def __init__(self, siamese_network, target_shape, margin=0.5):
         super(SiameseModel, self).__init__()
@@ -137,6 +153,7 @@ negative_input = layers.Input(name="negative", shape=target_shape + (3,))
 embedding = Embedding(target_shape=target_shape)
 
 
+<<<<<<< HEAD
 anchor_input = layers.Input(name="anchor", shape=target_shape + (3,))
 positive_input = layers.Input(name="positive", shape=target_shape + (3,))
 negative_input = layers.Input(name="negative", shape=target_shape + (3,))
@@ -159,3 +176,61 @@ print("Positive similarity:", positive_similarity.numpy())
 
 negative_similarity = cosine_similarity(anchor_embedding, negative_embedding)
 print("Negative similarity", negative_similarity.numpy())
+=======
+def check_image(db_image_path, test_image_path):
+    anchor = image.load_img(db_image_path, target_size=(224, 224))  # Resize the image as needed
+    anchor_img_array = image.img_to_array(anchor)  # Convert the image to a NumPy array
+    anchor_img_array = np.expand_dims(anchor_img_array, axis=0)  # Add batch dimension
+
+    positive = image.load_img(test_image_path, target_size=(224, 224))  # Resize the image as needed
+    pos_img_array = image.img_to_array(positive)  # Convert the image to a NumPy array
+    pos_img_array = np.expand_dims(pos_img_array, axis=0)  # Add batch dimension
+    
+    negative = image.load_img("C:\\Users\\Mumba Ntambo\\SiamModel\\Siamese\\test\\biebs.jpeg", target_size=(224, 224))  # Resize the image as needed
+    neg_img_array = image.img_to_array(negative)  # Convert the image to a NumPy array
+    neg_img_array = np.expand_dims(neg_img_array, axis=0)  # Add batch dimension
+    
+    anchor_embedding, positive_embedding, negative_embedding = (
+        embedding(resnet.preprocess_input(anchor_img_array)),
+        embedding(resnet.preprocess_input(pos_img_array)),
+        embedding(resnet.preprocess_input(neg_img_array)),
+    )
+
+    cosine_similarity = metrics.CosineSimilarity()
+
+    positive_similarity = cosine_similarity(anchor_embedding, positive_embedding)
+    print("Positive similarity:", positive_similarity.numpy())
+    return positive_similarity.numpy()
+
+def test():
+    anchor = image.load_img("C:\\Users\\Mumba Ntambo\\SiamModel\\Siamese\\test\\cr1.jpeg", target_size=(224, 224))  # Resize the image as needed
+    anchor_img_array = image.img_to_array(anchor)  # Convert the image to a NumPy array
+    anchor_img_array = np.expand_dims(anchor_img_array, axis=0)  # Add batch dimension
+
+    positive = image.load_img("C:\\Users\\Mumba Ntambo\\SiamModel\\Siamese\\test\\cr2.jpeg", target_size=(224, 224))  # Resize the image as needed
+    pos_img_array = image.img_to_array(positive)  # Convert the image to a NumPy array
+    pos_img_array = np.expand_dims(pos_img_array, axis=0)  # Add batch dimension
+
+    negative = image.load_img("C:\\Users\\Mumba Ntambo\\SiamModel\\Siamese\\test\\biebs.jpeg", target_size=(224, 224))  # Resize the image as needed
+    neg_img_array = image.img_to_array(negative)  # Convert the image to a NumPy array
+    neg_img_array = np.expand_dims(neg_img_array, axis=0)  # Add batch dimension
+
+
+    anchor_embedding, positive_embedding, negative_embedding = (
+        embedding(resnet.preprocess_input(anchor_img_array)),
+        embedding(resnet.preprocess_input(pos_img_array)),
+        embedding(resnet.preprocess_input(neg_img_array)),
+    )
+
+    cosine_similarity = metrics.CosineSimilarity()
+
+    positive_similarity = cosine_similarity(anchor_embedding, positive_embedding)
+    print("Positive similarity:", positive_similarity.numpy())
+
+    negative_similarity = cosine_similarity(anchor_embedding, negative_embedding)
+    print("Negative similarity", negative_similarity.numpy())
+
+
+if __name__ == "__main__":
+    test()
+>>>>>>> mumba
